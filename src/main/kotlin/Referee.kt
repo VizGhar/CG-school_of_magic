@@ -16,35 +16,28 @@ class Referee : AbstractReferee() {
     @Inject
     lateinit var graphicEntityModule: GraphicEntityModule
 
-    lateinit var random: Random
+    private lateinit var currentLevel: Level
 
     override fun init() {
-        random = Random(gameManager.seed)
         gameManager.maxTurns = 10
         gameManager.firstTurnMaxTime = 1000
         gameManager.turnMaxTime = 50
         gameManager.frameDuration = 1000
+
+        currentLevel = Level.getLevelFromLeague(Random(gameManager.seed), gameManager.leagueLevel)
 
         // draw screen
         initDraw()
     }
 
     override fun gameTurn(turn: Int) {
-        val spell = random.nextLong(1000).toString()
+        val spell = currentLevel.generateTurnInput()
 
         sendInputToPlayers(spell)
 
-        handlePlayerOutput(spell)
-    }
-
-    private fun handlePlayerOutput(spell: String) {
-        for (player in gameManager.activePlayers) {
+        gameManager.activePlayers.forEach { player ->
             try {
-                if (player.output() == spell) {
-                    println("Player {${player.nicknameToken} scored!")
-                    player.score++
-                }
-                // Check validity of the player output and compute the new game state
+                if (currentLevel.isPlayerOutputValid(spell, player.output())) player.score++
             } catch (e: AbstractPlayer.TimeoutException) {
                 player.deactivate(String.format("$%d timeout!", player.index))
             }
