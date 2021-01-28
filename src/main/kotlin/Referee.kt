@@ -1,6 +1,6 @@
 package com.codingame.game
 
-import com.codingame.game.ui.initDraw
+import com.codingame.game.ui.*
 import com.codingame.gameengine.core.AbstractPlayer
 import com.codingame.gameengine.core.AbstractReferee
 import com.codingame.gameengine.core.MultiplayerGameManager
@@ -28,6 +28,7 @@ class Referee : AbstractReferee() {
 
         // draw screen
         initDraw()
+        initHud()
     }
 
     override fun gameTurn(turn: Int) {
