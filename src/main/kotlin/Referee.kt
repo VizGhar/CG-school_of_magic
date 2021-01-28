@@ -1,5 +1,6 @@
 package com.codingame.game
 
+import com.codingame.game.ui.initDraw
 import com.codingame.gameengine.core.AbstractPlayer
 import com.codingame.gameengine.core.AbstractReferee
 import com.codingame.gameengine.core.MultiplayerGameManager
@@ -9,13 +10,19 @@ import com.google.inject.Inject
 class Referee : AbstractReferee() {
 
     @Inject
-    private lateinit var gameManager: MultiplayerGameManager<Player>
+    lateinit var gameManager: MultiplayerGameManager<Player>
 
     @Inject
-    private lateinit var graphicEntityModule: GraphicEntityModule
+    lateinit var graphicEntityModule: GraphicEntityModule
 
     override fun init() {
-        // Initialize your game here.
+        gameManager.maxTurns = 200
+        gameManager.firstTurnMaxTime = 1000
+        gameManager.turnMaxTime = 50
+        gameManager.frameDuration = 1000
+
+        // draw screen
+        initDraw()
     }
 
     override fun gameTurn(turn: Int) {
