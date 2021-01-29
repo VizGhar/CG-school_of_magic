@@ -25,9 +25,9 @@ private const val FORCE_FIELD_2_Z = 21
 data class AssetSpec(val background: String, val wizard1X: Int, val wizard1Y: Int, val wizard2X: Int, val wizard2Y: Int, val wizard3X: Int, val wizard3Y: Int)
 
 private val assetSpecs = arrayOf(
-        AssetSpec("background_0.jpg", 500, 930, 400, 1030, 1000, 1000),
-        AssetSpec("background_1.jpg", 400, 930, 500, 1030, 1000, 1000),
-        AssetSpec("background_2.jpg", 500, 800, 400, 900, 1000, 900)
+        AssetSpec("background_0.jpg", 500, 930, 400, 1030, 1500, 1000),
+        AssetSpec("background_1.jpg", 400, 930, 500, 1030, 1500, 1000),
+        AssetSpec("background_2.jpg", 500, 800, 400, 900, 1500, 900)
 )
 
 private val shieldImages = arrayOf(
@@ -160,7 +160,7 @@ fun Referee.initDraw() {
             .setImages(*Wizard3.idle)
             .setX(specs.wizard3X)
             .setY(specs.wizard3Y)
-            .setAnchorX(0.0)
+            .setAnchorX(1.0)
             .setAnchorY(1.0)
             .setScale(0.4)
             .setDuration(500)
@@ -211,7 +211,7 @@ fun Referee.initHud() {
             .setHeight(HUD_HEALTH_BAR_HEIGHT)
             .setScale(ASSETS_SCALE)
             .setX(40 + 340/4)
-            .setY(40 + 175/4)
+            .setY(240 + 175/4)
             .setZIndex(HUD_HEALTH_BAR_STATUS_Z)
             .setFillColor(0xFF0000)
 
@@ -220,13 +220,13 @@ fun Referee.initHud() {
             .setHeight(HUD_HEALTH_BAR_HEIGHT)
             .setScale(ASSETS_SCALE)
             .setX(40 + 340/4)
-            .setY(240 + 175/4)
+            .setY(40 + 175/4)
             .setZIndex(HUD_HEALTH_BAR_STATUS_Z)
             .setFillColor(0xFF0000)
 
     graphicEntityModule.createText(gameManager.players[0].nicknameToken)
             .setX(230)
-            .setY(50)
+            .setY(250)
             .setZIndex(HUD_HEALTH_BAR_TEXT_Z)
             .setFontSize(40)
             .setFontWeight(Text.FontWeight.BOLD)
@@ -252,7 +252,7 @@ fun Referee.initHud() {
 
     graphicEntityModule.createText(gameManager.players[1].nicknameToken)
             .setX(230)
-            .setY(250)
+            .setY(50)
             .setZIndex(HUD_HEALTH_BAR_TEXT_Z)
             .setFontSize(40)
             .setFontWeight(Text.FontWeight.BOLD)
