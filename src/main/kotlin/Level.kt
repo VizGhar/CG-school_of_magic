@@ -1,36 +1,45 @@
 package com.codingame.game
 
+import com.codingame.game.Level.Animation.*
 import java.lang.NumberFormatException
 import java.lang.RuntimeException
 import kotlin.random.Random
 
 sealed class Level(val random: Random) {
 
+    enum class Animation { ATTACK, DEFEND, DIE, IDLE }
+
+    data class TurnOutcome(val isValid: Boolean, val animation: Animation)
+
     abstract fun generateTurnInput(): String
-    abstract fun isPlayerOutputValid(playerInput: String, playerOutput: String): Boolean
+    abstract fun isPlayerOutputValid(playerInput: String, playerOutput: String): TurnOutcome
 
     class Level1(random: Random) : Level(random) {
         override fun generateTurnInput(): String = random.nextInt(1000).toString()
-        override fun isPlayerOutputValid(playerInput: String, playerOutput: String) = playerInput == playerOutput
+        override fun isPlayerOutputValid(playerInput: String, playerOutput: String): TurnOutcome {
+            val valid = playerInput == playerOutput
+            return TurnOutcome(valid, if (valid) ATTACK else IDLE)
+        }
     }
 
     class Level2(random: Random) : Level(random) {
         private val attack = "ATTACK"
         private val defend = "DEFEND"
         override fun generateTurnInput(): String = random.nextInt(200).toString()
-        override fun isPlayerOutputValid(playerInput: String, playerOutput: String): Boolean {
+        override fun isPlayerOutputValid(playerInput: String, playerOutput: String): TurnOutcome {
             return try {
                 val answer = if (playerInput.toInt() > 100) defend else attack
-                playerOutput == answer
+                val valid = playerOutput == answer
+                TurnOutcome(valid, Animation.values().first { it.name == answer })
             } catch (numberFormatException: NumberFormatException) {
-                false
+                TurnOutcome(false, IDLE)
             }
         }
     }
 
     class Level3(random: Random) : Level(random) {
         override fun generateTurnInput(): String = TODO("Level 3 generateTurnInput not yet implemented")
-        override fun isPlayerOutputValid(playerInput: String, playerOutput: String): Boolean {
+        override fun isPlayerOutputValid(playerInput: String, playerOutput: String): TurnOutcome {
             TODO("Level 3 isPlayerOutputValid not yet implemented")
         }
     }
