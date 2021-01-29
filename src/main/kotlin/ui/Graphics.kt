@@ -3,15 +3,17 @@ package com.codingame.game.ui
 import com.codingame.game.Referee
 import com.codingame.gameengine.module.entities.Rectangle
 import com.codingame.gameengine.module.entities.SpriteAnimation
-
-private const val HEALTH_BAR_WIDTH = 486
-private const val HEALTH_BAR_HEIGHT = 197
+import com.codingame.gameengine.module.entities.Text
 
 private const val BACKGROUND_Z = 0
 private const val HUD_BACKGROUND_Z = 1
 private const val HUD_HEALTH_BAR_Z = 2
 private const val HUD_HEALTH_BAR_STATUS_Z = 3
 private const val HUD_HEALTH_BAR_FOREGROUND_Z = 4
+private const val HUD_HEALTH_BAR_TEXT_Z = 5
+private const val HUD_HEALTH_BAR_WIDTH = 1243 - 340
+private const val HUD_HEALTH_BAR_HEIGHT = 338 - 175
+private const val ASSETS_SCALE = 0.25
 
 private const val WIZARD_1_Z = 10
 private const val WIZARD_2_Z = 20
@@ -60,7 +62,15 @@ fun Referee.attack(entity: Entity) {
     graphicEntityModule.commitEntityState(0.5, sprite)
 }
 
-fun Referee.hit(entity: Entity) {  }
+fun Referee.hit(entity: Entity, hp: Double) {
+    val sprite = when (entity) {
+        Entity.PLAYER_1 -> hitPointsRectanglePlayer1
+        Entity.PLAYER_2 -> hitPointsRectanglePlayer2
+        Entity.ENEMY -> throw IllegalStateException("ENEMY cannot be hit (yet)")
+    } ?: throw IllegalStateException("Did you forget to call initHud() ?")
+
+    sprite.setScaleX(ASSETS_SCALE*hp)
+}
 
 fun Referee.shield(entity: Entity) {
     val sprite = when (entity) {
@@ -85,19 +95,24 @@ fun Referee.initDraw() {
             .setZIndex(BACKGROUND_Z)
 
     player1 = graphicEntityModule.createSpriteAnimation()
-            .setImages(*Wizard1.idle)
-            .setX(350)
-            .setY(700)
+            .setImages(*Wizard1.attack)
+            .setScale(ASSETS_SCALE)
+            .setAnchorX(0.0)
+            .setAnchorY(1.0)
+            .setX(500)
+            .setY(800)
             .setDuration(500)
             .setLoop(true)
             .setPlaying(true)
             .setZIndex(WIZARD_1_Z)
 
     shieldPlayer1 = graphicEntityModule.createSpriteAnimation()
-            .setScale(0.25)
             .setImages(*shieldImages)
-            .setX(350)
-            .setY(700)
+            .setScale(ASSETS_SCALE)
+            .setAnchorX(0.0)
+            .setAnchorY(1.0)
+            .setX(500)
+            .setY(800)
             .setDuration(500)
             .setLoop(true)
             .setPlaying(false)
@@ -105,19 +120,24 @@ fun Referee.initDraw() {
             .setZIndex(FORCE_FIELD_1_Z)
 
     player2 = graphicEntityModule.createSpriteAnimation()
-            .setImages(*Wizard2.idle)
-            .setX(250)
-            .setY(800)
+            .setImages(*Wizard2.attack)
+            .setScale(ASSETS_SCALE)
+            .setAnchorX(0.0)
+            .setAnchorY(1.0)
+            .setX(400)
+            .setY(900)
             .setDuration(500)
             .setLoop(true)
             .setPlaying(true)
             .setZIndex(WIZARD_2_Z)
 
     shieldPlayer2 = graphicEntityModule.createSpriteAnimation()
+            .setScale(ASSETS_SCALE)
             .setImages(*shieldImages)
-            .setScale(0.25)
-            .setX(250)
-            .setY(800)
+            .setX(400)
+            .setY(900)
+            .setAnchorX(0.0)
+            .setAnchorY(1.0)
             .setDuration(500)
             .setLoop(true)
             .setPlaying(false)
@@ -127,7 +147,10 @@ fun Referee.initDraw() {
     enemy = graphicEntityModule.createSpriteAnimation()
             .setImages(*Wizard3.idle)
             .setX(1000)
-            .setY(600)
+            .setY(900)
+            .setAnchorX(0.0)
+            .setAnchorY(1.0)
+            .setScale(0.4)
             .setDuration(500)
             .setLoop(true)
             .setPlaying(true)
@@ -137,8 +160,7 @@ fun Referee.initDraw() {
 fun Referee.initHud() {
     graphicEntityModule.createSprite()
             .setImage("1_hp_background.png")
-            .setBaseWidth(HEALTH_BAR_WIDTH)
-            .setBaseHeight(HEALTH_BAR_HEIGHT)
+            .setScale(ASSETS_SCALE)
             .setX(40)
             .setY(40)
             .setAnchorX(0.0)
@@ -147,8 +169,7 @@ fun Referee.initHud() {
 
     graphicEntityModule.createSprite()
             .setImage("2_hp_background.png")
-            .setBaseWidth(HEALTH_BAR_WIDTH)
-            .setBaseHeight(HEALTH_BAR_HEIGHT)
+            .setScale(ASSETS_SCALE)
             .setX(40)
             .setY(240)
             .setAnchorX(0.0)
@@ -157,8 +178,7 @@ fun Referee.initHud() {
 
     graphicEntityModule.createSprite()
             .setImage("1_hp_bar.png")
-            .setBaseWidth(HEALTH_BAR_WIDTH)
-            .setBaseHeight(HEALTH_BAR_HEIGHT)
+            .setScale(ASSETS_SCALE)
             .setX(40)
             .setY(40)
             .setAnchorX(0.0)
@@ -167,18 +187,42 @@ fun Referee.initHud() {
 
     graphicEntityModule.createSprite()
             .setImage("2_hp_bar.png")
-            .setBaseWidth(HEALTH_BAR_WIDTH)
-            .setBaseHeight(HEALTH_BAR_HEIGHT)
+            .setScale(ASSETS_SCALE)
             .setX(40)
             .setY(240)
             .setAnchorX(0.0)
             .setAnchorY(0.0)
             .setZIndex(HUD_HEALTH_BAR_Z)
 
+    hitPointsRectanglePlayer1 = graphicEntityModule.createRectangle()
+            .setWidth(HUD_HEALTH_BAR_WIDTH)
+            .setHeight(HUD_HEALTH_BAR_HEIGHT)
+            .setScale(ASSETS_SCALE)
+            .setX(40 + 340/4)
+            .setY(40 + 175/4)
+            .setZIndex(HUD_HEALTH_BAR_STATUS_Z)
+            .setFillColor(0xFF0000)
+
+    hitPointsRectanglePlayer2 = graphicEntityModule.createRectangle()
+            .setWidth(HUD_HEALTH_BAR_WIDTH)
+            .setHeight(HUD_HEALTH_BAR_HEIGHT)
+            .setScale(ASSETS_SCALE)
+            .setX(40 + 340/4)
+            .setY(240 + 175/4)
+            .setZIndex(HUD_HEALTH_BAR_STATUS_Z)
+            .setFillColor(0xFF0000)
+
+    graphicEntityModule.createText(gameManager.players[0].nicknameToken)
+            .setX(230)
+            .setY(50)
+            .setZIndex(HUD_HEALTH_BAR_TEXT_Z)
+            .setFontSize(40)
+            .setFontWeight(Text.FontWeight.BOLD)
+            .setFillColor(0xffffff)
+
     graphicEntityModule.createSprite()
             .setImage("1_hp_foreground.png")
-            .setBaseWidth(HEALTH_BAR_WIDTH)
-            .setBaseHeight(HEALTH_BAR_HEIGHT)
+            .setScale(ASSETS_SCALE)
             .setX(40)
             .setY(40)
             .setAnchorX(0.0)
@@ -187,28 +231,18 @@ fun Referee.initHud() {
 
     graphicEntityModule.createSprite()
             .setImage("2_hp_foreground.png")
-            .setBaseWidth(HEALTH_BAR_WIDTH)
-            .setBaseHeight(HEALTH_BAR_HEIGHT)
+            .setScale(ASSETS_SCALE)
             .setX(40)
             .setY(240)
             .setAnchorX(0.0)
             .setAnchorY(0.0)
             .setZIndex(HUD_HEALTH_BAR_FOREGROUND_Z)
 
-    val name1 = gameManager.players[0].nicknameToken
-    val name2 = gameManager.players[1].nicknameToken
-
-    graphicEntityModule.createText(name1)
-            .setX(230)
-            .setY(50)
-            .setZIndex(20)
-            .setFontSize(40)
-            .setFillColor(0xffffff)
-
-    graphicEntityModule.createText(name2)
+    graphicEntityModule.createText(gameManager.players[1].nicknameToken)
             .setX(230)
             .setY(250)
-            .setZIndex(20)
+            .setZIndex(HUD_HEALTH_BAR_TEXT_Z)
             .setFontSize(40)
+            .setFontWeight(Text.FontWeight.BOLD)
             .setFillColor(0xffffff)
 }

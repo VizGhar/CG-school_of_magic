@@ -47,6 +47,11 @@ class Referee : AbstractReferee() {
                 val turnOutcome = currentLevel.isPlayerOutputValid(spell, player.output())
                 handleAnimation(index, turnOutcome)
                 if (!turnOutcome.isValid) player.score--
+
+                attack(Entity.PLAYER_2)
+                shield(Entity.PLAYER_1)
+                hit(Entity.PLAYER_2, 1.0 - 0.1 * turn)
+
             } catch (e: AbstractPlayer.TimeoutException) {
                 player.deactivate(String.format("$%d timeout!", player.index))
             }
