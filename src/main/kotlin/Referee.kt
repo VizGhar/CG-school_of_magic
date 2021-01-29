@@ -45,26 +45,26 @@ class Referee : AbstractReferee() {
         gameManager.activePlayers.forEachIndexed { index, player ->
             try {
                 val turnOutcome = currentLevel.isPlayerOutputValid(spell, player.output())
-                handleAnimation(index, turnOutcome)
                 if (!turnOutcome.isValid) player.score--
 
-                attack(Entity.PLAYER_2)
-                shield(Entity.PLAYER_1)
-                hit(Entity.PLAYER_2, 1.0 - 0.1 * turn)
-
+                handleAnimation(index, turnOutcome, player.score)
             } catch (e: AbstractPlayer.TimeoutException) {
                 player.deactivate(String.format("$%d timeout!", player.index))
             }
         }
     }
 
-    private fun handleAnimation(playerIndex: Int, turnOutcome: Level.TurnOutcome) {
+    private fun handleAnimation(playerIndex: Int, turnOutcome: Level.TurnOutcome, score: Int) {
         val entity = if (playerIndex == 0) Entity.PLAYER_1 else Entity.PLAYER_2
-        when (turnOutcome.animation) {
-            Level.Animation.ATTACK -> attack(entity)
-            Level.Animation.DEFEND -> shield(entity)
-            Level.Animation.DIE -> println("Die animation missing")
-            Level.Animation.IDLE -> println("Idle animation missing")
+        if (turnOutcome.isValid) {
+            when (turnOutcome.animation) {
+                Level.Animation.ATTACK -> attack(entity)
+                Level.Animation.DEFEND -> shield(entity)
+                Level.Animation.DIE -> println("Die animation missing")
+                Level.Animation.IDLE -> println("Idle animation missing")
+            }
+        } else {
+            hit(entity, score * 0.1)
         }
     }
 
