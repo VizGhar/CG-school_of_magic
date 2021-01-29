@@ -3,6 +3,7 @@ package com.codingame.game.ui
 import com.codingame.game.Referee
 import com.codingame.gameengine.module.entities.Rectangle
 import com.codingame.gameengine.module.entities.SpriteAnimation
+import com.codingame.gameengine.module.entities.Text
 
 private const val HEALTH_BAR_WIDTH = 486
 private const val HEALTH_BAR_HEIGHT = 197
@@ -85,7 +86,10 @@ fun Referee.initDraw() {
             .setZIndex(BACKGROUND_Z)
 
     player1 = graphicEntityModule.createSpriteAnimation()
-            .setImages(*Wizard1.idle)
+            .setImages(*Wizard1.attack)
+            .setScale(0.25)
+            .setAnchorX(0.0)
+            .setAnchorY(1.0)
             .setX(350)
             .setY(700)
             .setDuration(500)
@@ -94,8 +98,10 @@ fun Referee.initDraw() {
             .setZIndex(WIZARD_1_Z)
 
     shieldPlayer1 = graphicEntityModule.createSpriteAnimation()
-            .setScale(0.25)
             .setImages(*shieldImages)
+            .setScale(0.25)
+            .setAnchorX(0.0)
+            .setAnchorY(1.0)
             .setX(350)
             .setY(700)
             .setDuration(500)
@@ -105,7 +111,7 @@ fun Referee.initDraw() {
             .setZIndex(FORCE_FIELD_1_Z)
 
     player2 = graphicEntityModule.createSpriteAnimation()
-            .setImages(*Wizard2.idle)
+            .setImages(*Wizard2.attack)
             .setX(250)
             .setY(800)
             .setDuration(500)
@@ -114,8 +120,8 @@ fun Referee.initDraw() {
             .setZIndex(WIZARD_2_Z)
 
     shieldPlayer2 = graphicEntityModule.createSpriteAnimation()
-            .setImages(*shieldImages)
             .setScale(0.25)
+            .setImages(*shieldImages)
             .setX(250)
             .setY(800)
             .setDuration(500)
@@ -195,20 +201,19 @@ fun Referee.initHud() {
             .setAnchorY(0.0)
             .setZIndex(HUD_HEALTH_BAR_FOREGROUND_Z)
 
-    val name1 = gameManager.players[0].nicknameToken
-    val name2 = gameManager.players[1].nicknameToken
-
-    graphicEntityModule.createText(name1)
+    graphicEntityModule.createText(gameManager.players[0].nicknameToken)
             .setX(230)
             .setY(50)
             .setZIndex(20)
             .setFontSize(40)
+            .setFontWeight(Text.FontWeight.BOLD)
             .setFillColor(0xffffff)
 
-    graphicEntityModule.createText(name2)
+    graphicEntityModule.createText(gameManager.players[1].nicknameToken)
             .setX(230)
             .setY(250)
             .setZIndex(20)
             .setFontSize(40)
+            .setFontWeight(Text.FontWeight.BOLD)
             .setFillColor(0xffffff)
 }

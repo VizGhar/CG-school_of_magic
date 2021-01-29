@@ -39,6 +39,8 @@ class Referee : AbstractReferee() {
         gameManager.activePlayers.forEach { player ->
             try {
                 if (currentLevel.isPlayerOutputValid(spell, player.output())) player.score++
+                attack(Entity.PLAYER_2)
+                attack(Entity.PLAYER_1)
             } catch (e: AbstractPlayer.TimeoutException) {
                 player.deactivate(String.format("$%d timeout!", player.index))
             }
