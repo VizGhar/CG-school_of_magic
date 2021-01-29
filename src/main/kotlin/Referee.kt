@@ -23,12 +23,14 @@ class Referee : AbstractReferee() {
     private lateinit var currentLevel: Level
 
     override fun init() {
-        gameManager.maxTurns = 10
-        gameManager.firstTurnMaxTime = 1000
-        gameManager.turnMaxTime = 50
-        gameManager.frameDuration = 1000
+        gameManager.maxTurns = MAX_TURNS
+        gameManager.firstTurnMaxTime = FIRST_TURN_MAX_TIME
+        gameManager.turnMaxTime = TURN_MAX_TIME
+        gameManager.frameDuration = FRAME_DURATION
 
         currentLevel = Level.getLevelFromLeague(Random(gameManager.seed), gameManager.leagueLevel)
+
+        gameManager.activePlayers.forEach { it.score = PLAYER_STARTING_SCORE }
 
         // draw screen
         initDraw()
@@ -44,7 +46,7 @@ class Referee : AbstractReferee() {
             try {
                 val turnOutcome = currentLevel.isPlayerOutputValid(spell, player.output())
                 handleAnimation(index, turnOutcome)
-                if (turnOutcome.isValid) player.score++
+                if (!turnOutcome.isValid) player.score--
             } catch (e: AbstractPlayer.TimeoutException) {
                 player.deactivate(String.format("$%d timeout!", player.index))
             }
@@ -73,4 +75,13 @@ class Referee : AbstractReferee() {
     }
 
     private fun AbstractPlayer.output() = outputs.first()
+
+    companion object {
+        const val MAX_TURNS = 10
+        const val FIRST_TURN_MAX_TIME = 1000
+        const val TURN_MAX_TIME = 50
+        const val FRAME_DURATION = 1000
+
+        const val PLAYER_STARTING_SCORE = MAX_TURNS
+    }
 }

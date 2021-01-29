@@ -3,6 +3,7 @@ package com.codingame.game
 import com.codingame.game.Level.Animation.*
 import java.lang.NumberFormatException
 import java.lang.RuntimeException
+import java.util.jar.Attributes
 import kotlin.random.Random
 
 sealed class Level(val random: Random) {
@@ -23,12 +24,10 @@ sealed class Level(val random: Random) {
     }
 
     class Level2(random: Random) : Level(random) {
-        private val attack = "ATTACK"
-        private val defend = "DEFEND"
         override fun generateTurnInput(): String = random.nextInt(200).toString()
         override fun isPlayerOutputValid(playerInput: String, playerOutput: String): TurnOutcome {
             return try {
-                val answer = if (playerInput.toInt() > 100) defend else attack
+                val answer = if (playerInput.toInt() > 100) DEFEND.name else ATTACK.name
                 val valid = playerOutput == answer
                 TurnOutcome(valid, Animation.values().first { it.name == answer })
             } catch (numberFormatException: NumberFormatException) {
@@ -38,9 +37,21 @@ sealed class Level(val random: Random) {
     }
 
     class Level3(random: Random) : Level(random) {
-        override fun generateTurnInput(): String = TODO("Level 3 generateTurnInput not yet implemented")
+        override fun generateTurnInput(): String = "${random.nextInt(1, 10)} ${random.nextInt(200)}"
         override fun isPlayerOutputValid(playerInput: String, playerOutput: String): TurnOutcome {
-            TODO("Level 3 isPlayerOutputValid not yet implemented")
+            return if (expectedAnswer(playerInput) == playerOutput) {
+                val animation = if (playerOutput.contains(ATTACK.name)) ATTACK else DEFEND
+                TurnOutcome(true, animation)
+            } else {
+                TurnOutcome(false, IDLE)
+            }
+        }
+
+        public fun expectedAnswer(playerInput: String): String {
+            val words = playerInput.split(" ")
+            val intensity = words[0].toInt()
+            val spell = if (words[1].toInt() > 100) DEFEND.name else ATTACK.name
+            return spell.repeat(intensity)
         }
     }
 
