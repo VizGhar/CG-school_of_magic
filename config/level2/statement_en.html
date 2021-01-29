@@ -11,7 +11,7 @@
     <div style="text-align: center; margin-bottom: 6px"><img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png"></div>
     
     <p style="text-align: center; font-weight: 700; margin-bottom: 6px;">Welcome to your second lesson</p>
-    You will learn how to use if-else conditions...
+    You will learn how to use if-else conditions
     </div>
   <!-- GOAL -->
   <div class="statement-section statement-goal">
@@ -28,7 +28,7 @@
       <span>Rules</span>
     </h1>
     <div>
-      <div class="statement-rules-content">From the beginning of the game you will resist a large number of spells. You can easily defend against them (using <const>DEFEND</const> spell) unless their magic power is less than 100. If the magic power of Wizard spells is stronger, you have to use your own attack spell (using <const>ATTACK</const> spell)<br><br>
+      <div class="statement-rules-content">From the beginning of the game you will resist a large number of spells. You can defend against them (using <const>DEFEND</const> spell) if their magic power is above 100. If the magic power of Wizard spells is weaker, you have to use your own attack spell (using <const>ATTACK</const> spell)<br><br>
 Be careful! You must save your attack spells. Use them only, if it is necessary.
       </div>
     </div>
@@ -40,8 +40,8 @@ Be careful! You must save your attack spells. Use them only, if it is necessary.
       <div class="title">Victory Conditions</div>
       <div class="text">
         <ul>
-          <li>You win if the magic power of Maester Wizard’s spell is less than 100 and you use defensive spell.</li>
-          <li>You win if the magic power of Maester Wizard’s spell is greater than 100 and you use attack spell.</li>
+          <li>You win if the magic power of Maester Wizard’s spell is less than or equal to 100 and you use <const>ATTACK</const> spell.</li>
+          <li>You win if the magic power of Maester Wizard’s spell is greater than 100 and you use <const>DEFEND</const> spell.</li>
         </ul>
       </div>
     </div>
@@ -51,8 +51,11 @@ Be careful! You must save your attack spells. Use them only, if it is necessary.
     <div class="icon lose">&nbsp;</div>
     <div class="blk">
       <div class="title">Lose Conditions</div>
-      <div class="text">You lose if the magic power of Maester Wizard spell is less than 100 and you use attack spell.
-You lose if you use no spell.
+      <div class="text">
+        <ul>
+          <li>You lose if the magic power of Maester Wizard spell is less than or equal to 100 and you won't use <const>ATTACK</const> spell.</li>
+          <li>You lose if the magic power of Maester Wizard spell is more than 100 and you won't use <const>DEFEND</const> spell.</li>
+        </ul>
 </div>
     </div>
   </div>
@@ -64,7 +67,7 @@ You lose if you use no spell.
     </h1>
     <!-- Protocol block -->
     <div class="blk">
-      <div class="text">In each turn, your program must read single text from standard input and based on provided rules print either <const>ATTACK</const> (if input is > 100) or <const>DEFEND</const> (if input is <= 100). Don't forget that your output has to end with newline</div>
+      <div class="text">In each turn, your program must read single text from standard input and based on provided rules print either <const>ATTACK</const> (if input is <= 100) or <const>DEFEND</const> (if input is > 100). Don't forget that your output has to end with a newline</div>
     </div>
 
     <!-- Protocol block -->

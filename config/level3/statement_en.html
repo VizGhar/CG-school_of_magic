@@ -11,7 +11,7 @@
     <div style="text-align: center; margin-bottom: 6px"><img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png"></div>
     
     <p style="text-align: center; font-weight: 700; margin-bottom: 6px;">Welcome to your third lesson</p>
-    You will learn how to use for loop...
+    Now you will learn how to use for loop...
     </div>
   <!-- GOAL -->
   <div class="statement-section statement-goal">
@@ -19,7 +19,8 @@
       <span class="icon icon-goal">&nbsp;</span>
       <span>The Goal</span>
     </h1>
-    <div class="statement-goal-content">You somehow managed to survive first 2 rounds against Maester. He is proud of you and angry at the same time. Now it's time to show you his true powers...</div>
+    <div class="statement-goal-content">You somehow managed to survive first 2 rounds against Maester. He is proud of you and angry at the same time. Now it's time to show you his true powers.<br>
+    </div>
   </div>
   <!-- RULES -->
   <div class="statement-section statement-rules">
@@ -28,7 +29,7 @@
       <span>Rules</span>
     </h1>
     <div>
-      <div class="statement-rules-content">BLAH
+      <div class="statement-rules-content">In this round Maester will cast various <var>spell</var>s of certain <var>power</var>. If the <var>spell</var>'s value is below <const>100</const> you are able to <const>ATTACK</const> Maester. If the spell's value is equal to or higher <const>100</const> you have no other choice but use <const>DEFEND</const> spell order to deflect his spells. However this time you will have to defend yourself by repeating <const>DEFEND</const> spells <var>power</var> times in sequence. For example if <var>power</var> = <const>2</const> and <var>spell</var> = <const>150</const> then you have to print <const>DEFENDDEFEND</const><br><br>
       </div>
     </div>
   </div>
@@ -37,11 +38,7 @@
     <div class="icon victory">&nbsp;</div>
     <div class="blk">
       <div class="title">Victory Conditions</div>
-      <div class="text">
-        <ul>
-          <li>VC1</li>
-        </ul>
-      </div>
+      <div class="text">Do not make single mistake</div>
     </div>
   </div>
   <!-- Lose conditions -->
@@ -49,7 +46,7 @@
     <div class="icon lose">&nbsp;</div>
     <div class="blk">
       <div class="title">Lose Conditions</div>
-      <div class="text">LC
+      <div class="text">Mistake has been made
 </div>
     </div>
   </div>
@@ -61,14 +58,9 @@
     </h1>
     <!-- Protocol block -->
     <div class="blk">
-      <div class="text">HELLO</div>
-    </div>
-
-    <!-- Protocol block -->
-    <div class="blk">
       <div class="title">Input</div>
       <div class="text">
-        <p><span class="statement-lineno">Single line: </span><var>spell</var></p>
+        <p><span class="statement-lineno">Single line: </span><var>power</var> and <var>spell</var> separated by space</p>
       </div>
     </div>
 
@@ -76,7 +68,7 @@
     <div class="blk">
       <div class="title">Output</div>
       <div class="text">
-        <span class="statement-lineno">A single line</span><const>ATTACK</const> or <const>DEFEND</const>
+        <span class="statement-lineno">A single line</span><const>ATTACK</const> or <var>power</var> times <const>DEFEND</const> based on game rules
         <br>
       </div>
     </div>
