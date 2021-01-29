@@ -4,6 +4,7 @@ import com.codingame.game.Referee
 import com.codingame.gameengine.module.entities.Rectangle
 import com.codingame.gameengine.module.entities.SpriteAnimation
 import com.codingame.gameengine.module.entities.Text
+import kotlin.random.Random
 
 private const val BACKGROUND_Z = 0
 private const val HUD_BACKGROUND_Z = 1
@@ -20,6 +21,14 @@ private const val WIZARD_2_Z = 20
 private const val WIZARD_3_Z = 30
 private const val FORCE_FIELD_1_Z = 11
 private const val FORCE_FIELD_2_Z = 21
+
+data class AssetSpec(val background: String, val wizard1X: Int, val wizard1Y: Int, val wizard2X: Int, val wizard2Y: Int, val wizard3X: Int, val wizard3Y: Int)
+
+private val assetSpecs = arrayOf(
+        AssetSpec("background_0.jpg", 500, 930, 400, 1030, 1000, 1000),
+        AssetSpec("background_1.jpg", 400, 930, 500, 1030, 1000, 1000),
+        AssetSpec("background_2.jpg", 500, 800, 400, 900, 1000, 900)
+)
 
 private val shieldImages = arrayOf(
         "forcefield_0.png",
@@ -88,8 +97,11 @@ fun Referee.shield(entity: Entity) {
 }
 
 fun Referee.initDraw() {
+
+    val specs = assetSpecs[Random(gameManager.seed).nextInt(3)]
+
     graphicEntityModule.createSprite()
-            .setImage("background_2.jpg")
+            .setImage(specs.background)
             .setBaseWidth(graphicEntityModule.world.width)
             .setBaseHeight(graphicEntityModule.world.height)
             .setZIndex(BACKGROUND_Z)
@@ -99,8 +111,8 @@ fun Referee.initDraw() {
             .setScale(ASSETS_SCALE)
             .setAnchorX(0.0)
             .setAnchorY(1.0)
-            .setX(500)
-            .setY(800)
+            .setX(specs.wizard1X)
+            .setY(specs.wizard1Y)
             .setDuration(500)
             .setLoop(true)
             .setPlaying(true)
@@ -111,8 +123,8 @@ fun Referee.initDraw() {
             .setScale(ASSETS_SCALE)
             .setAnchorX(0.0)
             .setAnchorY(1.0)
-            .setX(500)
-            .setY(800)
+            .setX(specs.wizard1X)
+            .setY(specs.wizard1Y)
             .setDuration(500)
             .setLoop(true)
             .setPlaying(false)
@@ -124,8 +136,8 @@ fun Referee.initDraw() {
             .setScale(ASSETS_SCALE)
             .setAnchorX(0.0)
             .setAnchorY(1.0)
-            .setX(400)
-            .setY(900)
+            .setX(specs.wizard2X)
+            .setY(specs.wizard2Y)
             .setDuration(500)
             .setLoop(true)
             .setPlaying(true)
@@ -134,8 +146,8 @@ fun Referee.initDraw() {
     shieldPlayer2 = graphicEntityModule.createSpriteAnimation()
             .setScale(ASSETS_SCALE)
             .setImages(*shieldImages)
-            .setX(400)
-            .setY(900)
+            .setX(specs.wizard2X)
+            .setY(specs.wizard2Y)
             .setAnchorX(0.0)
             .setAnchorY(1.0)
             .setDuration(500)
@@ -146,8 +158,8 @@ fun Referee.initDraw() {
 
     enemy = graphicEntityModule.createSpriteAnimation()
             .setImages(*Wizard3.idle)
-            .setX(1000)
-            .setY(900)
+            .setX(specs.wizard3X)
+            .setY(specs.wizard3Y)
             .setAnchorX(0.0)
             .setAnchorY(1.0)
             .setScale(0.4)
