@@ -4,6 +4,7 @@ import com.codingame.game.ui.*
 import com.codingame.gameengine.core.AbstractPlayer
 import com.codingame.gameengine.core.AbstractReferee
 import com.codingame.gameengine.core.MultiplayerGameManager
+import com.codingame.gameengine.module.endscreen.EndScreenModule
 import com.codingame.gameengine.module.entities.GraphicEntityModule
 import com.google.inject.Inject
 import kotlin.random.Random
@@ -15,6 +16,9 @@ class Referee : AbstractReferee() {
 
     @Inject
     lateinit var graphicEntityModule: GraphicEntityModule
+
+    @Inject
+    lateinit var endScreenModule: EndScreenModule
 
     private lateinit var currentLevel: Level
 
@@ -55,6 +59,10 @@ class Referee : AbstractReferee() {
             Level.Animation.DIE -> println("Die animation missing")
             Level.Animation.IDLE -> println("Idle animation missing")
         }
+    }
+
+    override fun onEnd() {
+        endScreenModule.setScores(gameManager.players.stream().mapToInt { p: Player -> p.score }.toArray())
     }
 
     private fun sendInputToPlayers(spell: String) {
