@@ -1,5 +1,17 @@
 <div id="statement_back" class="statement_back" style="display:none"></div>
 <div class="statement-body">
+  <div style="color: #7cc576; 
+		background-color: rgba(124, 197, 118,.1);
+		padding: 20px;
+		margin-right: 15px;
+		margin-left: 15px;
+		margin-bottom: 10px;
+		text-align: left;">
+    
+    <div style="text-align: center; margin-bottom: 6px"><img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png"></div>
+    
+    <p style="text-align: center; font-weight: 700; margin-bottom: 6px;">Welcome to the School of Magic</p>
+    </div>
   <!-- GOAL -->
   <div class="statement-section statement-goal">
     <h1>
@@ -7,11 +19,7 @@
       <span>The Goal</span>
     </h1>
     <div class="statement-goal-content">
-        Level 1
-      <br>
-      <br>
-      For this question, you will be asked to output a single line as a solution.
-    </div>
+Disarm Maester Wizard before he kills you. His magic is really powerful and the only way to defeat him is to use his own spell against him.</div>
   </div>
   <!-- RULES -->
   <div class="statement-section statement-rules">
@@ -20,65 +28,24 @@
       <span>Rules</span>
     </h1>
     <div>
-      <div class="statement-rules-content">Your program receives characters.<br>
-        Your actions have an effect.<br>
-        <br>
-        The game zone works as follows:
-        <ul>
-          <li>There are coordinates.</li>
-        </ul>
-        <br>
-        The units work as follows:
-        <ul>
-          <li>They move around.</li>
-        </ul>
-        You <strong>lose</strong> if:
-        <ul>
-          <li>You mess up.</li>
-          <li>You do not supply a valid sequence of actions.</li>
-        </ul>
+      <div class="statement-rules-content">At the start of the game, you are attacked by the Maester Wizard spell. You have to read this spell from standard input and use the same spell against him. That means, you have to write the read spell on the standard output.<br>
       </div>
     </div>
   </div>
-  <!-- EXPERT RULES -->
-  <div class="statement-section statement-expertrules">
-    <h1>
-      <span class="icon icon-expertrules">&nbsp;</span>
-      <span>Expert Rules</span>
-    </h1>
-    <div class="statement-expert-rules-content">
-      If you're going to run local simulations, you'll need to know this!
+  <!-- Victory conditions -->
+  <div class="statement-victory-conditions">
+    <div class="icon victory">&nbsp;</div>
+    <div class="blk">
+      <div class="title">Victory Conditions</div>
+      <div class="text">Use the same spell as the Maester Wizard</div>
     </div>
   </div>
-  <!-- EXAMPLES -->
-  <div class="statement-section statement-examples">
-    <h1>
-      <span class="icon icon-example">&nbsp;</span>
-      <span>Example</span>
-    </h1>
-
-    <div class="statement-examples-text">
-      A basic situation, an instruction, a result.
-    </div>
-
-  </div>
-  <!-- WARNING -->
-  <div class="statement-section statement-warning">
-    <h1>
-      <span class="icon icon-warning">&nbsp;</span>
-      <span>Note</span>
-    </h1>
-    <div class="statement-warning-content">
-      <b>Don’t forget to run the tests by launching them from the “Test cases” window</b>. You can submit at any time
-      to recieve a score against the training validators. <b>You can submit as many times as you like</b>. Your most
-      recent submission will be used for the final ranking.<br>
-      <br>
-      <strong>Warning:</strong> the validation tests used to compute the final score are not the same as the ones used
-      during the event.
-      Harcoded solutions will not score highly.<br>
-      <br>
-      Don't hesitate to change the viewer's options to help debug your code (<img style="opacity:.8;background:#20252a;"
-        height="18" src="https://www.codingame.com/servlet/fileservlet?id=3463235186409" width="18">).
+  <!-- Lose conditions -->
+  <div class="statement-lose-conditions">
+    <div class="icon lose">&nbsp;</div>
+    <div class="blk">
+      <div class="title">Lose Conditions</div>
+      <div class="text">Provide incorrect spell or no spell at all</div>
     </div>
   </div>
   <!-- PROTOCOL -->
@@ -89,15 +56,14 @@
     </h1>
     <!-- Protocol block -->
     <div class="blk">
-      <div class="text">The program must first read the initialization data from standard input. Then, provide to the
-        standard output one line with ...</div>
+      <div class="text">In each turn, your program must read single text from standard input and print exactly the same text to standard output. Don't forget that your output has to end with newline</div>
     </div>
 
     <!-- Protocol block -->
     <div class="blk">
       <div class="title">Input</div>
       <div class="text">
-        <p><span class="statement-lineno">Line 1: </span>one string <var>...</var>, the ...</p>
+        <p><span class="statement-lineno">Single line: </span><var>spell</var>, the Maester wizard is casting against you</p>
       </div>
     </div>
 
@@ -105,28 +71,10 @@
     <div class="blk">
       <div class="title">Output</div>
       <div class="text">
-        <span class="statement-lineno">A single line</span> containing ...
+        <span class="statement-lineno">A single line</span> that contains only <var>spell</var>. It have to be same spell Maester casts.
         <br>
       </div>
     </div>
 
-    <!-- Protocol block -->
-    <div class="blk">
-      <div class="title">Constraints</div>
-      <div class="text"><var>...</var> contains between 1 and 500 characters.<br>
-        <br>Allotted response time to output
-        is ≤ <const>2</const> seconds.</div>
-    </div>
-  </div>
-  <!-- STORY -->
-  <div class="statement-story-background">
-    <div class="statement-story-cover" style="background-size: cover; background-image: url(https://www.codingame.com/servlet/fileservlet?id=2210505809934)">
-      <div class="statement-story">
-        <h1>Title</h1>
-        <div class="story-text">Story
-          <br>
-          Totally optional</div>
-      </div>
-    </div>
   </div>
 </div>
