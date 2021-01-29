@@ -1,9 +1,20 @@
-package com.codingame.game.ui
-
-fun main(args: Array<String>?) {
+import java.util.*
+import java.io.*
+import java.math.*
+fun main(args: Array<String>) {
     val scanner = Scanner(System.`in`)
+    var rounds = 0
     while (true) {
-        var spell = scanner.nextLine()
-        println(spell)
+        rounds++
+
+        var spell = scanner.nextInt()
+
+        val answer = if (rounds % 2 == 0) {
+            "I don't know"
+        } else {
+            if (spell > 100) "DEFEND" else "ATTACK"
+        }
+        throw java.lang.Exception("this should crash 2 ")
+        println(answer)
     }
 }
