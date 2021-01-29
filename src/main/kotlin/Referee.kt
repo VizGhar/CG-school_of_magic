@@ -42,6 +42,8 @@ class Referee : AbstractReferee() {
 
         sendInputToPlayers(spell)
 
+        attack(Entity.ENEMY)
+
         gameManager.activePlayers.forEachIndexed { index, player ->
             try {
                 val turnOutcome = currentLevel.isPlayerOutputValid(spell, player.output())
