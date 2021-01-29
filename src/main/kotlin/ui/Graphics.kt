@@ -107,7 +107,7 @@ fun Referee.initDraw() {
             .setZIndex(BACKGROUND_Z)
 
     player1 = graphicEntityModule.createSpriteAnimation()
-            .setImages(*Wizard1.attack)
+            .setImages(*Wizard1.idle)
             .setScale(ASSETS_SCALE)
             .setAnchorX(0.0)
             .setAnchorY(1.0)
@@ -132,7 +132,7 @@ fun Referee.initDraw() {
             .setZIndex(FORCE_FIELD_1_Z)
 
     player2 = graphicEntityModule.createSpriteAnimation()
-            .setImages(*Wizard2.attack)
+            .setImages(*Wizard2.idle)
             .setScale(ASSETS_SCALE)
             .setAnchorX(0.0)
             .setAnchorY(1.0)

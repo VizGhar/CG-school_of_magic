@@ -3,7 +3,6 @@ package com.codingame.game
 import com.codingame.game.Level.Animation.*
 import java.lang.NumberFormatException
 import java.lang.RuntimeException
-import java.util.jar.Attributes
 import kotlin.random.Random
 
 sealed class Level(val random: Random) {
@@ -27,12 +26,16 @@ sealed class Level(val random: Random) {
         override fun generateTurnInput(): String = random.nextInt(200).toString()
         override fun isPlayerOutputValid(playerInput: String, playerOutput: String): TurnOutcome {
             return try {
-                val answer = if (playerInput.toInt() > 100) DEFEND.name else ATTACK.name
+                val answer = expectedAnswer(playerInput)
                 val valid = playerOutput == answer
                 TurnOutcome(valid, Animation.values().first { it.name == answer })
             } catch (numberFormatException: NumberFormatException) {
                 TurnOutcome(false, IDLE)
             }
+        }
+
+        public fun expectedAnswer(playerInput: String): String {
+            return if (playerInput.toInt() > 100) DEFEND.name else ATTACK.name
         }
     }
 

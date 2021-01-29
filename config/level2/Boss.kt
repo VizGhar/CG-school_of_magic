@@ -14,7 +14,6 @@ fun main(args: Array<String>) {
         } else {
             if (spell > 100) "DEFEND" else "ATTACK"
         }
-        throw java.lang.Exception("this should crash 2 ")
         println(answer)
     }
 }
